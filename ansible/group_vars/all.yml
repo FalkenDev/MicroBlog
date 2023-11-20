@@ -1,13 +1,21 @@
 ---
 # Here you can add variables that will be available for all hosts.
-region: northeurope
-resource_group: <resource-id> # Change me
-domain_name: <domain> # Change me
+ansible_python_interpreter: "python3"
 
-root_user: azureuser
+region: northeurope
+resource_group: DIDA-KAFA21-DV1673-H23-LP2
+domain_name: devopsbth.tech
+
+admin_email: kafa21@student.bth.se
 
 vmtags:
-    StudentId: "<akronym>" # Change me
+  StudentId: kafa21
 
+pub_ssh_key_location: "/home/falkendev/.ssh/azure.pub"
 
-pub_ssh_key_location: '/home/<user>/.ssh/<key-name>.pub' # Change me, your local ssh key!
+lb_method: least_conn
+
+server_user: "deploy"
+server_user_pass: "devopsbth"
+server_user_groups:
+  - sudo
