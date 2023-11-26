@@ -9,8 +9,11 @@ jobs:
   python-ci:
     uses: ./.github/workflows/python-ci.yml
 
+  BTD-ci:
+    uses: ./.github/workflows/BTD-ci.yml
+
   build-and-push:
-    needs: python-ci
+    needs: [python-ci, BTD-ci]
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'release' && github.event.action == 'created' }}
     steps:
@@ -25,6 +28,8 @@ jobs:
 
       - name: Build and push Docker image for production
         uses: docker/build-push-action@v5
+        env:
+          DOCKER_CONTENT_TRUST: 1
         with:
           context: .
           push: true
@@ -34,6 +39,8 @@ jobs:
 
       - name: Build and push Docker image for testing
         uses: docker/build-push-action@v5
+        env:
+          DOCKER_CONTENT_TRUST: 1
         with:
           context: .
           push: true
